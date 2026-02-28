@@ -18,10 +18,14 @@ styles/
 userChrome.css
 userContent.css
 script.js
+theme.json
 ```
 
 This standard may seem a little confusing at first, but all of it is explained below.
+
 Universal assets (assets used for both styles and scripts) are stored in their own folder at the root of your repository.
+
+**If your project is meant for Sine:** You should place your mod metadata, `theme.json`, in the root of your repository, making it easy for Sine and contributors to find and understand.
 
 **If your project uses scripts:** Your entry point script should be stored at the root of the repository, labeled as `script.js` (or .mjs for modules). This file should only be stored there either if it is the only script in your project, or if it plays a critical role as the main script of your project. In any other scenario, your scripts should all be placed under the scripts folder. On top of this, if you only have one script in your project, it should be stored at the root and the assets for that script should be placed under the universal assets folder instead. If the standard declares that you should have a scripts folder, you may arrange all the scripts inside of that folder in any way you wish, with subfolders based on the topic of certain scripts.
 
