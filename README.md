@@ -1,70 +1,40 @@
-# userChrome Loader
-This is a template intended to make it easier for end-users to manually load and manage custom CSS.
+# SMFM
 
-## Setup Instructions
+This project contains a full definition and example of the SMFM standard commonly used in Sine mods as the optimal file management system.
+(SMFM stands for the standard mod file management system)
 
-1. If you already have custom CSS in your **userChrome.css** file, back it up by copying the contents to a new CSS file indside the **chrome/** folder.
-  
-   - If you don't have any custom CSS in your userChrome.css file, skip this step.
+## What is the SMFM standard?
 
-2. Copy the **userChrome.css** file from this repo into your own userChrome.css file. 
+SMFM stores files like such:
 
-   - You can keep manual customizations in this file, however, uCL only uses it for import rules to call mods. 
-
-3. When you find a customization you want to add, copy the contents to a new folder inside **chrome/**.
-
-   - Make sure the new folder and CSS file have unique names. 
-
-4. Add the **@import** rule to **userChrome.css** with the path to the new CSS file made in the last step. 
-
-*Examples:*
-
-@import "chrome/example/example.css";
-
-@import "chrome/example-2/example-mod2.css";
-
-## Why Use uCL?
-
-Orginizing custom CSS into their own files and folders will significantly aid users in customization and file management, as well as troubleshooting bugs by enabling easier isolation of custom CSS through @import rules. 
-
-This also allows Mod creaters to make their customizations more modular, allowing end users to pick and choose which features they want to add. 
-
-## Mod Creators / CSS Wizards:
-Now when you upload some CSS with the intention of sharing, you can orginize your project folder structure by feauture with Modules. See [Natsumi Browser](https://github.com/greeeen-dev/natsumi-browser/tree/main) for the ideal project structure.
-
-```
-mod
-|- mod.css
-|- modules
-   |- module1.css
-   |- module2.css
+```text
+assets/
+scripts/
+|- assets/
+|- *
+styles/
+|- assets/
+|- *
 userChrome.css
+userContent.css
+script.js
 ```
 
-## Further Examples:
+This standard may seem a little confusing at first, but all of it is explained below.
+Universal assets (assets used for both styles and scripts) are stored in their own folder at the root of your repository.
 
-Here's what your **chrome** folder should look like, with some example mods already in place:
+**If your project uses scripts:** Your entry point script should be stored at the root of the repository, labeled as `script.js` (or .mjs for modules). This file should only be stored there either if it is the only script in your project, or if it plays a critical role as the main script of your project. In any other scenario, your scripts should all be placed under the scripts folder. On top of this, if you only have one script in your project, it should be stored at the root and the assets for that script should be placed under the universal assets folder instead. If the standard declares that you should have a scripts folder, you may arrange all the scripts inside of that folder in any way you wish, with subfolders based on the topic of certain scripts.
 
-![image](https://github.com/user-attachments/assets/3306ce43-fafe-406c-9a7f-dba00bac2fe0)
+**If your project uses styles:** There are two main files that you need to load in styles, `userChrome.css` and `userContent.css`. The chrome file allows you to style your browser interface, while content styles allow you to style websites like your new tab page, settings page, and even just standard websites like firefox.com. We recommend creating each file only as needed, rather than creating them even if your mod doesn't currently require them. For the SMFM standard, place both of these files at the root of the repository, and any imports that the mod requires should be placed under the styles folder. If you have assets used in only styles, place them under an assets folder in the styles folder. SMFM does not allow styles to be named after the mod or to be named `chrome.css` and `content.css` as it makes it more confusing for mod managers and contributors.
 
-And here's an example of **userChrome.css**
+## Why use SMFM?
 
-```
-/* === Load custom files === */
+Organizing CSS and JS into folders makes your repository not only clean, but easy to understand for people attempting to contribute. This setup is also verified to work with Sine easily, allowing your mod metadata to be as small as possible and work with defaults.
 
-@import "userchrome-loader/Cohesion/Cohesion.css";
-@import "userchrome-loader/natsumi/config.css";
-@import "userchrome-loader/natsumi/preload.css";
-@import "userchrome-loader/natsumi/patches.css";
-@import "userchrome-loader/natsumi/base-ui.css";
-@import "userchrome-loader/natsumi/tab-groups.css";
-@import "userchrome-loader/natsumi/horizontal-tabs.css";
-@import "userchrome-loader/natsumi/natsumi-urlbar.css";
-@import "userchrome-loader/natsumi/natsumi-loading.css";
-@import "userchrome-loader/natsumi/ui-tweaks.css";
+## Where can I find an example of SMFM? (todo)
 
-/* === Other custom CSS === */
-. . .
-```
+We store an up-to-date implementation of the SMFM standard on this repository under the example folder.
 
+## What's the difference between SMFM vs uCL?
 
+SMFM is designed to work easily with Sine mods and all of the defaults in it, optimizing your setup and making it easy for contributors to understand. uCL, on the other hand, is designed to work easily with custom user styles, which must be handled by the user manually. We recommend SMFM over uCL if you're developing for Sine, although it can also work for user styles.
